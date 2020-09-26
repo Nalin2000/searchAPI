@@ -1,25 +1,24 @@
 <template>
   <div class="contsiner">
-  <!--กรอก-->
-    <input type="text" v-model="keyword">
+    <!--กรอก-->
+    <input type="text" v-model="keyword" />
     <button class="button" @click="searchData()">Search</button>
     <!--{{result}} อยู่ใน tag ไม่ต้องใช้ปีกกาแต่ต้อง : or bind-->
     <!--check ว่าค่าเจอไหม-->
-      <b-card
-        v-for="data in result"
-        :key="data.mal_id"
-        :title="data.title"
-        :img-src="data.image_url"
-        :img-alt="Image"
-        img-top
-        tag="article"
-        style="max-width: 20rem;"
-        class="mb-2"
-      >
-        <b-card-text>{{data.synopsis}}</b-card-text>
-        <b-button :href="data.url" variant="primary">Go somewhere</b-button>
-      </b-card>
-  
+    <b-card
+      v-for="data in result"
+      :key="data.mal_id"
+      :title="data.title"
+      :img-src="data.image_url"
+      :img-alt="Image"
+      img-top
+      tag="article"
+      style="max-width: 20rem"
+      class="mb-2"
+    >
+      <b-card-text>{{ data.synopsis }}</b-card-text>
+      <b-button :href="data.url" variant="primary">Go somewhere</b-button>
+    </b-card>
   </div>
 </template>
 
@@ -29,14 +28,16 @@ export default {
   data() {
     return {
       result: null,
-      keyword : '',
-      err :false
+      keyword: "",
+      err: false,
     };
   },
   methods: {
     searchData() {
       axios
-        .get('https://api.jikan.moe/v3/search/anime?q='+this.keyword+'&page=1')
+        .get(
+          "https://api.jikan.moe/v3/search/anime?q=" + this.keyword + "&page=1"
+        )
         .then((response) => {
           this.result = response.data.results;
         })
